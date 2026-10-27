@@ -2,11 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Navbar from "./Components/Navbar";
 
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import ProductDetails from "./ages/ProductDetails";
-import Cart from "./pages/Cart";
-import NotFound from "./Pages/NotFound";
+import Home from "./Pages/Home";
+import Products from "./Pages/Products";
+import ProductDetails from "./Pages/ProductDetails";
+import Cart from "./Pages/Cart";
+import NotFound from "./Pages/NotFound";Co
 import Login from "./Pages/Login";
 import Favorites from "./Pages/Favorites";
 import Checkout from "./Pages/Checkout";
