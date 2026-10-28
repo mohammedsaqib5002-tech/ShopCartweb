@@ -32,13 +32,13 @@ if (
   category === "womens-dresses" ||
   category === "womens-jewellery"
 ) {
-  url = "/api/products?limit=194";
+  let url = "https://dummyjson.com/products?limit=194";
 } else if (category) {
-  url = `/api/products/category/${category}`;
+  url = `https://dummyjson.com/products/category/${category}`;
 }
 
 if (search) {
-  url = `/api/products/search?q=${encodeURIComponent(search)}`;
+  url = `https://dummyjson.com/products/search?q=${encodeURIComponent(search)}`;
 }
 
         const response = await fetch(url);
