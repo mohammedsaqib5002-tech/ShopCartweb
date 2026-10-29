@@ -45,6 +45,9 @@ if (search) {
         const data = await response.json();
 
         setProducts(data.products || []);
+
+        console.log("API responce:", data);
+        console.log("Products recieved:",data.products?.length);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
