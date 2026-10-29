@@ -25,7 +25,7 @@ function Products({ category: categoryProp }){
       try {
         setLoading(true);
 
-       let url = "/api/products?limit=194";
+          let url = "https://dummyjson.com/products?limit=194";
 
 if (
   category === "mens-shirts" ||
