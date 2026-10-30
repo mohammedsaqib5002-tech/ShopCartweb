@@ -43,11 +43,11 @@ if (
         console.log("FetcCHING URL:", url);
         const response = await fetch(url);
         
-        console.log("RESPONCE STATUS:", responce.status);
-        console.log("CONTENT TYPE:", responce.headers.get("content-type"));
+        console.log("RESPONSE STATUS:", response.status);
+        console.log("CONTENT TYPE:", response.headers.get("content-type"));
 
-        if (!responce.ok){
-          throw new ERROR(`API Error: ${responce.status}`);
+        if (!response.ok){
+          throw new ERROR(`API Error: ${response.status}`);
         }
 
         const data = await response.json();
