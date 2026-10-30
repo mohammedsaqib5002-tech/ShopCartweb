@@ -74,7 +74,8 @@ const matchesSearch =
   maxPrice === "" || product.price <= Number(maxPrice);
 
  const matchesCategory =
-  selectedCategory === "All" ||
+  (selectedCategory === "All" ||
+   selectedCategory === "All Categories") || 
   product.category?.toLowerCase() ===
     selectedCategory.toLowerCase() ||
   (selectedCategory === "mens-shirts" &&
