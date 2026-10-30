@@ -40,10 +40,18 @@ if (
 ) {
   url = `https://dummyjson.com/products/category/${category}`;
 }
-
+        console.log("FetcCHING URL:", url);
         const response = await fetch(url);
-        const data = await response.json();
+        
+        console.log("RESPONCE STATUS:", responce.status);
+        console.log("CONTENT TYPE:", responce.headers.get("content-type"));
 
+        if (!responce.ok){
+          throw new ERROR(`API Error: ${responce.status}`);
+        }
+
+        const data = await response.json();
+        
         setProducts(data.products || []);
 
         console.log("API responce:", data);
