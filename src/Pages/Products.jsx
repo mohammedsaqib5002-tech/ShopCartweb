@@ -38,7 +38,7 @@ if (
   category !== "all" &&
   category !== "All Categories"
 ) {
-  url = https://dummyjson.com/products/category/${category};
+  url = `https://dummyjson.com/products/category/${category}`;
 }
 
         const response = await fetch(url);
