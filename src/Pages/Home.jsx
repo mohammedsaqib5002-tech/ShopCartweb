@@ -21,7 +21,7 @@ useEffect(() => {
       return response.json();
     })
   .then((data) => {
-    setProdfucts(data.products || []);
+    setProducts(data.products || []);
   })
   .catch((error) => {
     console.error("Error fetching products:",error);
