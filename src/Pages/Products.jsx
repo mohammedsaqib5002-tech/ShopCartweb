@@ -65,7 +65,7 @@ if (
     };
 
     fetchProducts();
-  }, [category, search]);
+  }, [category, search, selectedCategory]);
 
   if (loading) {
     return <h2 className="text-center mt-10">Loading products...</h2>;
