@@ -24,7 +24,7 @@ function Navbar() {
                    value={search}
                    onChange={(e) => 
                     setSearch(e.target.value)}
-                   className="flex-1 px-4 py-2 outline-none"
+                   className="flex-1 px-4 py-2 outline-none text-black placeholder-gray-500 bg-white"
                    />
             <button 
             onClick={() => navigate(`/products?search=${encodeURIComponent(search)}`)}
