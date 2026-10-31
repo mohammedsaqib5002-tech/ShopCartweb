@@ -12,7 +12,7 @@ function Products({ category: categoryProp }){
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("deault");
   const [maxPrice, setMaxPrice] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
 
@@ -65,7 +65,7 @@ if (
     };
 
     fetchProducts();
-  }, [category, search, selectedCategory]);
+  }, [category, search]);
 
   if (loading) {
     return <h2 className="text-center mt-10">Loading products...</h2>;
