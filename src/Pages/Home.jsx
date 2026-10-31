@@ -8,18 +8,25 @@ function Home() {
 useEffect(() => {
   const url =
   category === "all"
-    ? "/api/products"
-    : `/api/products/category/${category}`;
-       console.log("selected catogery:",category);
+    ?
+ "https://dummyjson.com/products?limit=194";
+  `https://dummyjson.com/products/category/${category}`;
+       console.log("Fetching products:", url);
   
        fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      setProducts(data.products);
+    .then((response) => {
+    if (!response.ok){
+      throw new Error("Failed to fetch products");
+    }
+      return response.json();
     })
-    .catch((error) => {
-      console.log("Error fetching products:", error);
-    });
+  .then((data) => {
+    setProdfucts(data.products || []);
+  })
+  .catch((error) => {
+    console.error("Error fetching products:",error);
+    setProducts([]);
+  });
 }, [category]);
 
   return (
