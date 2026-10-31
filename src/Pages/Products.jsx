@@ -36,6 +36,7 @@ if (
 } else if (
   category &&
   category !== "all" &&
+  category !== "All" &&
   category !== "All Categories"
 ) {
   url = `https://dummyjson.com/products/category/${category}`;
