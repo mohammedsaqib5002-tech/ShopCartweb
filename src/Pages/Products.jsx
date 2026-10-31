@@ -129,7 +129,7 @@ return (
   }}
   className="w-full border p-3 rounded-lg mb-4"
 >
-  <option value="all">All Categories</option>
+  <option value="All">All Categories</option>
   <option value="beauty">Beauty</option>
   <option value="fragrances">Fragrances</option>
   <option value="furniture">Furniture</option>
