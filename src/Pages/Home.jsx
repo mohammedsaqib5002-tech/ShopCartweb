@@ -9,7 +9,7 @@ useEffect(() => {
   const url =
   category === "all"
     ?
- "https://dummyjson.com/products?limit=194";
+ "https://dummyjson.com/products?limit=194":
   `https://dummyjson.com/products/category/${category}`;
        console.log("Fetching products:", url);
   
