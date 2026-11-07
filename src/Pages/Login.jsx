@@ -14,13 +14,8 @@ function Login() {
     e.preventDefault();
     setError("");
 
-    if (!email.trim() || !password) {
+    if (!email.trim() || !password.trim()) {
       setError("Please enter email and password.");
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address.");
       return;
     }
 
@@ -35,7 +30,7 @@ function Login() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.trim(),
+            email,
             password,
           }),
         }
@@ -44,28 +39,23 @@ function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Login failed.");
+        throw new Error(data.message || "Login failed");
+      }
+
+      if (!data.token) {
+        throw new Error("Login token was not received.");
       }
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      alert("Login successful! Welcome to ShopKart.");
 
       navigate("/");
+
     } catch (err) {
-      setError(
-        err.message === "Failed to fetch"
-          ? "Cannot connect to the server. Please check your backend."
-          : err.message
-      );
+      setError(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
   };
-
-  const inputClass =
-    "w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-rose-700";
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
@@ -102,7 +92,8 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className={inputClass}
+              className="w-full border border-gray-300 rounded-lg p-3"
+              required
             />
           </div>
 
@@ -117,7 +108,8 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className={`${inputClass} pr-16`}
+                className="w-full border border-gray-300 rounded-lg p-3 pr-16"
+                required
               />
 
               <button
@@ -139,12 +131,9 @@ function Login() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
+        <p className="text-center text-sm text-gray-500 mt-6">
           Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="text-rose-800 font-semibold hover:underline"
-          >
+          <Link to="/signup" className="text-rose-800 font-semibold">
             Sign Up
           </Link>
         </p>
