@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 function Navbar() {
   const cartItems = useSelector((state) => state.cart.items);
-
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
@@ -19,7 +18,7 @@ function Navbar() {
 
     if (search.trim()) {
       navigate(
-        `/products?search=${encodeURIComponent(search.trim())}`
+        /products?search=${encodeURIComponent(search.trim())}
       );
     }
   };
@@ -57,13 +56,13 @@ function Navbar() {
           ShopKart
         </Link>
 
-        {/* Desktop Search Bar */}
+        {/* Desktop Search */}
         <div className="hidden md:block">
           {searchBar}
         </div>
 
-        {/* Cart and Login */}
-        <div className="flex items-center gap-4">
+        {/* Cart, Login and Signup */}
+        <div className="flex items-center gap-2 sm:gap-4">
 
           <Link
             to="/cart"
@@ -81,11 +80,17 @@ function Navbar() {
             Login
           </Link>
 
-        </div>
+          <Link
+            to="/signup"
+            className="bg-white text-[#9F1239] px-3 py-2 rounded-lg font-semibold hover:bg-gray-100"
+          >
+            Signup
+          </Link>
 
+        </div>
       </div>
 
-      {/* Mobile Search Bar */}
+      {/* Mobile Search */}
       <div className="md:hidden mt-4">
         {searchBar}
       </div>
@@ -109,43 +114,27 @@ function Navbar() {
           Favorites
         </Link>
 
-        <Link
-          to="/orders"
-          className="hover:text-gray-200"
-        >
+        <Link to="/orders" className="hover:text-gray-200">
           Orders
         </Link>
 
-        <Link
-          to="/category/smartphones"
-          className="hover:text-gray-200"
-        >
+        <Link to="/category/smartphones" className="hover:text-gray-200">
           Electronics
         </Link>
 
-        <Link
-          to="/category/mens-shirts"
-          className="hover:text-gray-200"
-        >
+        <Link to="/category/mens-shirts" className="hover:text-gray-200">
           Men's Shirts
         </Link>
 
-        <Link
-          to="/category/womens-dresses"
-          className="hover:text-gray-200"
-        >
+        <Link to="/category/womens-dresses" className="hover:text-gray-200">
           Women's Dresses
         </Link>
 
-        <Link
-          to="/category/womens-jewellery"
-          className="hover:text-gray-200"
-        >
+        <Link to="/category/womens-jewellery" className="hover:text-gray-200">
           Jewellery
         </Link>
 
       </div>
-
     </nav>
   );
 }
