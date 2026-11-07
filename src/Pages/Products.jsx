@@ -84,7 +84,7 @@ function Products({ category: categoryProp }) {
     );
   }
 
-  const searchText = `${urlSearch} ${localSearch}.toLowerCase().trim()`;
+  const searchText = `${urlSearch} ${localSearch}`.toLowerCase().trim();
 
   // Filter products
   const filteredProducts = products.filter((product) => {
