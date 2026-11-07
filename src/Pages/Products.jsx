@@ -239,7 +239,7 @@ function Products({ category: categoryProp }) {
 
       {/* Product list */}
       {currentProducts.length > 0 ? (
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-3 lg:grid-cols-4 w-full">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
           {currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
