@@ -117,7 +117,7 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className={${inputClass} pr-16}
+                className={`${inputClass} pr-16`}
               />
 
               <button
