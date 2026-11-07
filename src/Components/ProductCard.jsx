@@ -51,7 +51,7 @@ const ProductCard = ({ product }) => {
   return (
     <div
       onClick={handleProductClick}
-      className="border rounded-lg p-4 shadow hover:shadow-lg transition cursor-pointer"
+      className="min-w-0 w-full border rounded-lg p-2 sm:p-4 shadow hover:shadow-lg transition cursor-pointer"
     >
      <div className="relative">
   <img
