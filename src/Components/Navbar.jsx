@@ -19,7 +19,7 @@ function Navbar() {
 
     if (search.trim()) {
       navigate(
-        /products?search=${encodeURIComponent(search.trim())}
+        `/products?search=${encodeURIComponent(search.trim()`)}
       );
     }
   };
