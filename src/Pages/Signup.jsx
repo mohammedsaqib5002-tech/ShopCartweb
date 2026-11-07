@@ -13,6 +13,7 @@ function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -21,8 +22,9 @@ function Signup() {
     });
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (
       !form.name.trim() ||
@@ -49,9 +51,42 @@ function Signup() {
       return;
     }
 
-    setError("");
-    alert("Signup form completed successfully!");
-    navigate("/Login");
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "http://localhost:5000/api/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: form.name.trim(),
+            email: form.email.trim(),
+            password: form.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed.");
+      }
+
+      alert("Account created successfully! Please login.");
+
+      navigate("/Login");
+    } catch (err) {
+      setError(
+        err.message === "Failed to fetch"
+          ? "Cannot connect to the server. Please check that your backend is running."
+          : err.message
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass =
@@ -145,7 +180,9 @@ function Signup() {
               <input
                 type="checkbox"
                 checked={showPassword}
-                onChange={(e) => setShowPassword(e.target.checked)}
+                onChange={(e) =>
+                  setShowPassword(e.target.checked)
+                }
                 className="accent-rose-800"
               />
               Show passwords
@@ -154,9 +191,10 @@ function Signup() {
 
           <button
             type="submit"
-            className="w-full bg-rose-800 hover:bg-rose-900 text-white font-semibold py-3 rounded-lg transition"
+            disabled={loading}
+            className="w-full bg-rose-800 hover:bg-rose-900 disabled:opacity-60 text-white font-semibold py-3 rounded-lg transition"
           >
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
@@ -169,6 +207,7 @@ function Signup() {
             Login
           </Link>
         </p>
+
       </div>
     </div>
   );
