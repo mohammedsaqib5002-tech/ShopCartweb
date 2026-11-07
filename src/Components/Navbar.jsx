@@ -1,111 +1,153 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FaShoppingCart, FaUser, FaSearch, FaHeart } from "react-icons/fa"
+import {
+  FaShoppingCart,
+  FaUser,
+  FaSearch,
+  FaHeart
+} from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 function Navbar() {
   const cartItems = useSelector((state) => state.cart.items);
+
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (search.trim()) {
+      navigate(
+        /products?search=${encodeURIComponent(search.trim())}
+      );
+    }
+  };
+
+  const searchBar = (
+    <form
+      onSubmit={handleSearch}
+      className="flex items-center bg-white rounded-lg overflow-hidden w-full md:w-64 lg:w-80"
+    >
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="flex-1 min-w-0 px-3 py-2 outline-none text-black"
+      />
+
+      <button
+        type="submit"
+        className="bg-[#881337] text-white px-4 py-3"
+      >
+        <FaSearch />
+      </button>
+    </form>
+  );
+
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <nav className="bg-[#9F1239] text-white px-4 py-4">
+
+      {/* Top Section */}
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
 
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold">
           ShopKart
         </Link>
-        
-        {/* Search Bar */}
-        <div className="flex item-center bg-white rounded-lg overflow-hidden e-96">
-            <input type="text" 
-                   placeholder="search products..."
-                   value={search}
-                   onChange={(e) => 
-                    setSearch(e.target.value)}
-                   className="flex-1 px-4 py-2 outline-none text-black placeholder-gray-500 bg-white"
-                   />
-            <button 
-            onClick={() => navigate(`/products?search=${encodeURIComponent(search)}`)}
-            className="bg-blue-700 px-4 py-3">
-                <FaSearch />
-                </button>
-                </div>
 
-        {/* Navigation Links */}
-        <div className="flex items-center gap-6">
+        {/* Desktop Search Bar */}
+        <div className="hidden md:block">
+          {searchBar}
+        </div>
 
-          <Link to="/" className="hover:text-gray-200">
-            Home
-          </Link>
+        {/* Cart and Login */}
+        <div className="flex items-center gap-4">
 
-          
-          <Link to="/products" className="hover:text-gray-200">
-            Products
-          </Link>
-
-          <Link to="/favorites" className="hover:text-gray-200">
-           <FaHeart />
-          Favorites
-          </Link>
-
-           <Link
+          <Link
             to="/cart"
             className="flex items-center gap-2 hover:text-gray-200"
           >
             <FaShoppingCart />
-            Cart
-          </Link>
-
-
-
-          <Link
-  to="/category/smartphones"
-  className="hover:text-gray-200"
->
-  Electronics
-</Link>
-
-<Link
-  to="/category/mens-shirts"
-  className="hover:text-gray-200"
->
-  Men's shirts
-</Link>
-
-<Link
-  to="/category/womens-dresses"
-  className="hover:text-gray-200"
->
-  Women's dresses
-</Link>
-
-<Link
-  to="/category/womens-jewellery"
-  className="hover:text-gray-200"
->
-  Jewelery
-</Link>
-
-<Link to="/orders"
-className="hover:text-gray-200">
-  Orders
-</Link>
-
-<Link
-  
-             className="flex items-center gap-2 hover:text-gray-200">
-            <FaShoppingCart />
             Cart ({cartItems.length})
           </Link>
-          <Link to="/Login" className="bg-blue-600 text-white px-4 py-2 rounded">Login</Link>
+
+          <Link
+            to="/Login"
+            className="flex items-center gap-2 bg-[#881337] px-3 py-2 rounded-lg hover:bg-[#70102d]"
+          >
+            <FaUser />
+            Login
+          </Link>
 
         </div>
 
       </div>
+
+      {/* Mobile Search Bar */}
+      <div className="md:hidden mt-4">
+        {searchBar}
+      </div>
+
+      {/* Navigation Links */}
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-3 mt-5 text-sm md:text-base">
+
+        <Link to="/" className="hover:text-gray-200">
+          Home
+        </Link>
+
+        <Link to="/products" className="hover:text-gray-200">
+          Products
+        </Link>
+
+        <Link
+          to="/favorites"
+          className="flex items-center gap-2 hover:text-gray-200"
+        >
+          <FaHeart />
+          Favorites
+        </Link>
+
+        <Link
+          to="/orders"
+          className="hover:text-gray-200"
+        >
+          Orders
+        </Link>
+
+        <Link
+          to="/category/smartphones"
+          className="hover:text-gray-200"
+        >
+          Electronics
+        </Link>
+
+        <Link
+          to="/category/mens-shirts"
+          className="hover:text-gray-200"
+        >
+          Men's Shirts
+        </Link>
+
+        <Link
+          to="/category/womens-dresses"
+          className="hover:text-gray-200"
+        >
+          Women's Dresses
+        </Link>
+
+        <Link
+          to="/category/womens-jewellery"
+          className="hover:text-gray-200"
+        >
+          Jewellery
+        </Link>
+
+      </div>
+
     </nav>
-  )
+  );
 }
 
 export default Navbar;
