@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
       : null;
 
   const handleProductClick = () => {
-    navigate(/products/${product.id});
+    navigate(`/products/${product.id}`);
   };
 
   const handleAddToCart = (e) => {
