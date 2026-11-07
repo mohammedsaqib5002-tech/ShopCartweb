@@ -8,6 +8,7 @@ import ProductDetails from "./Pages/ProductDetails";
 import Cart from "./Pages/Cart";
 import NotFound from "./Pages/NotFound"
 import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 import Favorites from "./Pages/Favorites";
 import Checkout from "./Pages/Checkout";
 import OrderSuccess from "./Pages/OrderSuccess";
@@ -63,6 +64,8 @@ function App() {
 
 <Route path="/Login" element={<Login />} />
 
+<Route path="/signup" element={<Signup />} />
+        
 <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
