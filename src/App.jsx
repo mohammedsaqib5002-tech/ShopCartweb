@@ -14,6 +14,7 @@ import Favorites from "./Pages/Favorites";
 import Checkout from "./Pages/Checkout";
 import OrderSuccess from "./Pages/OrderSuccess";
 import Order from "./Pages/Order";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -58,15 +59,34 @@ function App() {
 
             <Route path="/products/:id" element={<ProductDetails />} />
 
-            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/favorites" element={
+                <ProtectedRoute>
+                  <Favorites />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute>
+                  <Order />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/cart" element={<Cart />} />
 
-            <Route path="/checkout" element={<Checkout />} />
-
             <Route path="/order-success" element={<OrderSuccess />} />
-
-            <Route path="/orders" element={<Order />} />
 
             <Route path="/Login" element={<Login />} />
 

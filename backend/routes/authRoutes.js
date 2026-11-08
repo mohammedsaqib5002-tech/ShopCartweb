@@ -1,6 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import authMiddleware from "../middleware/authmiddleware.js";
 
 const router = express.Router();
 
@@ -126,6 +127,28 @@ router.post("/login", async (req, res) => {
 
     res.status(500).json({
       message: error.message || "Login failed",
+    });
+  }
+});
+
+// Get logged-in user (Protected API)
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.json({
+      message: "User authenticated successfully",
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to get user details",
     });
   }
 });

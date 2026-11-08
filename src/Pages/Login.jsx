@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function Login() {
   const navigate = useNavigate();
 
@@ -22,19 +24,13 @@ function Login() {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "https://shopcartwebshopcart-backend.onrender.com/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       const data = await response.json();
 
@@ -48,8 +44,12 @@ function Login() {
 
       localStorage.setItem("token", data.token);
 
-      navigate("/");
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
 
+      window.dispatchEvent(new Event("authChanged"));
+      navigate("/");
     } catch (err) {
       setError(err.message || "Something went wrong.");
     } finally {
@@ -60,16 +60,11 @@ function Login() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
       <div className="bg-white w-full max-w-md p-6 sm:p-8 rounded-2xl shadow-lg border">
-
         <div className="text-center mb-7">
-          <h1 className="text-3xl font-bold text-rose-800">
-            ShopKart
-          </h1>
-
+          <h1 className="text-3xl font-bold text-rose-800">ShopKart</h1>
           <h2 className="text-2xl font-bold text-gray-800 mt-4">
             Welcome Back!
           </h2>
-
           <p className="text-gray-500 mt-2">
             Login to continue shopping
           </p>
@@ -86,7 +81,6 @@ function Login() {
             <label className="block mb-2 font-medium text-gray-700">
               Email Address
             </label>
-
             <input
               type="email"
               value={email}
@@ -137,7 +131,6 @@ function Login() {
             Sign Up
           </Link>
         </p>
-
       </div>
     </div>
   );

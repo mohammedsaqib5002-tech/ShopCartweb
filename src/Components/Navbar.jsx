@@ -1,17 +1,44 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaShoppingCart,
   FaUser,
   FaSearch,
-  FaHeart
+  FaHeart,
+  FaSignOutAlt
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 function Navbar() {
   const cartItems = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => !!localStorage.getItem("token")
+  );
+
+  useEffect(() => {
+    const updateLoginStatus = () => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener("authChanged", updateLoginStatus);
+    window.addEventListener("storage", updateLoginStatus);
+
+    return () => {
+      window.removeEventListener("authChanged", updateLoginStatus);
+      window.removeEventListener("storage", updateLoginStatus);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -48,20 +75,16 @@ function Navbar() {
   return (
     <nav className="bg-[#9F1239] text-white px-4 py-4">
 
-      {/* Top Section */}
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
 
-        {/* Logo */}
         <Link to="/" className="text-2xl font-bold">
           ShopKart
         </Link>
 
-        {/* Desktop Search */}
         <div className="hidden md:block">
           {searchBar}
         </div>
 
-        {/* Cart, Login and Signup */}
         <div className="flex items-center gap-2 sm:gap-4">
 
           <Link
@@ -72,30 +95,40 @@ function Navbar() {
             Cart ({cartItems.length})
           </Link>
 
-          <Link
-            to="/Login"
-            className="flex items-center gap-2 bg-[#881337] px-3 py-2 rounded-lg hover:bg-[#70102d]"
-          >
-            <FaUser />
-            Login
-          </Link>
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/Login"
+                className="flex items-center gap-2 bg-[#881337] px-3 py-2 rounded-lg hover:bg-[#70102d]"
+              >
+                <FaUser />
+                Login
+              </Link>
 
-          <Link
-            to="/signup"
-            className="bg-white text-[#9F1239] px-3 py-2 rounded-lg font-semibold hover:bg-gray-100"
-          >
-            Signup
-          </Link>
+              <Link
+                to="/signup"
+                className="bg-white text-[#9F1239] px-3 py-2 rounded-lg font-semibold hover:bg-gray-100"
+              >
+                Signup
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 bg-[#881337] px-3 py-2 rounded-lg hover:bg-[#70102d]"
+            >
+              <FaSignOutAlt />
+              Logout
+            </button>
+          )}
 
         </div>
       </div>
 
-      {/* Mobile Search */}
       <div className="md:hidden mt-4">
         {searchBar}
       </div>
 
-      {/* Navigation Links */}
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-3 mt-5 text-sm md:text-base">
 
         <Link to="/" className="hover:text-gray-200">
