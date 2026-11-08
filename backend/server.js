@@ -14,6 +14,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://shop-cartweb-6hmd-35n47hnjb-mohammedsaqib5002-1985s-projects.vercel.app",
   "https://shop-cartweb-lswz7keqy-mohammedsaqib5002-1985s-projects.vercel.app"
 ];
 
