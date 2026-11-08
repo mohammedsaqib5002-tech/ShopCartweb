@@ -12,8 +12,13 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const app = express();
 
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://shop-cartweb-6hmd-35n47hnjb-mohammedsaqib5002-1985s-projects.vercel.app"
+];
+
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: allowedOrigins
 }));
 
 app.use(express.json());
