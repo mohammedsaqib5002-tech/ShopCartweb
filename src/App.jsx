@@ -59,12 +59,7 @@ function App() {
 
             <Route path="/products/:id" element={<ProductDetails />} />
 
-            <Route path="/favorites" element={
-                <ProtectedRoute>
-                  <Favorites />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/favorites" element={<Favorites />} />
 
             <Route
               path="/checkout"
