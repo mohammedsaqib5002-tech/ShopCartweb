@@ -2,11 +2,15 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes.js";
-
 dotenv.config();
+console.log("JWT SECRET LOADED:", !! process.env.JWT_SECRET);
+
+import authRoutes from "./routes/authRoutes.js";
+import dns from "dns";
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const app = express();
+
 
 app.use(cors({
   origin: "http://localhost:5173",
@@ -30,7 +34,7 @@ async function startServer() {
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`
-        
+
       );
     });
   } catch (error) {

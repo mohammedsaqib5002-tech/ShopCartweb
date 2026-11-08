@@ -57,11 +57,6 @@ function Products({ category: categoryProp }) {
     return () => controller.abort();
   }, []);
 
-  // Reset pagination when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [urlSearch, localSearch, category, selectedCategory, maxPrice, sortBy]);
-
   if (loading) {
     return (
       <h2 className="text-center mt-10 text-xl font-semibold">
@@ -152,14 +147,20 @@ function Products({ category: categoryProp }) {
         type="text"
         placeholder="Search products..."
         value={localSearch}
-        onChange={(e) => setLocalSearch(e.target.value)}
+        onChange={(e) => {
+          setLocalSearch(e.target.value);
+          setCurrentPage(1);
+        }}
         className="w-full border p-3 rounded-lg mb-6"
       />
 
       {/* Category filter */}
       <select
         value={selectedCategory}
-        onChange={(e) => setSelectedCategory(e.target.value)}
+        onChange={(e) => {
+          setSelectedCategory(e.target.value);
+          setCurrentPage(1);
+        }}
         className="w-full border p-3 rounded-lg mb-6"
       >
         <option value="All">All Categories</option>
@@ -198,7 +199,10 @@ function Products({ category: categoryProp }) {
         <select
           id="sortProducts"
           value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
+          onChange={(e) => {
+            setSortBy(e.target.value);
+            setCurrentPage(1);
+          }}
           className="border border-gray-300 rounded-lg px-3 py-2 bg-white"
         >
           <option value="default">Default</option>
@@ -214,7 +218,10 @@ function Products({ category: categoryProp }) {
             min="0"
             placeholder="Enter price"
             value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
+            onChange={(e) => {
+              setMaxPrice(e.target.value);
+              setCurrentPage(1);
+            }}
             className="w-32 border border-gray-300 rounded-lg px-3 py-2"
           />
         </label>

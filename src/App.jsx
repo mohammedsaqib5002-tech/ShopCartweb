@@ -1,12 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./Components/Navbar";
+import Footer from "./Components/Footer";
 
 import Home from "./Pages/Home";
 import Products from "./Pages/Products";
 import ProductDetails from "./Pages/ProductDetails";
 import Cart from "./Pages/Cart";
-import NotFound from "./Pages/NotFound"
+import NotFound from "./Pages/NotFound";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Favorites from "./Pages/Favorites";
@@ -17,60 +18,71 @@ import Order from "./Pages/Order";
 function App() {
   return (
     <BrowserRouter>
+      <div className="min-h-screen flex flex-col">
 
-      <Navbar />
-      <Routes>
+        {/* Navbar */}
+        <Navbar />
 
-      <Route path="/" element={<Home />} />
+        {/* Main Pages */}
+        <main className="flex-grow">
+          <Routes>
 
-<Route path="/products" element={<Products />} />
+            <Route path="/" element={<Home />} />
 
-<Route path="/category/:category" element={<Products key={window.location.pathname} />}
-/>
+            <Route path="/products" element={<Products />} />
 
+            <Route
+              path="/category/:category"
+              element={<Products key={window.location.pathname} />}
+            />
 
-{/* Category routes */}
-<Route
-  path="/category/smartphones"
-  element={<Products category="smartphones" />}
-/>
+            <Route
+              path="/category/smartphones"
+              element={<Products category="smartphones" />}
+            />
 
-<Route
-  path="/category/mens-shirts"
-  element={<Products category="mens-shirts" />}
-/>
+            <Route
+              path="/category/mens-shirts"
+              element={<Products category="mens-shirts" />}
+            />
 
-<Route
-  path="/category/womens-dresses"
-  element={<Products category="womens-dresses" />}
-/>
+            <Route
+              path="/category/womens-dresses"
+              element={<Products category="womens-dresses" />}
+            />
 
-<Route
-  path="/category/womens-jewellery"
-  element={<Products category="womens-jewellery" />}
-/>
+            <Route
+              path="/category/womens-jewellery"
+              element={<Products category="womens-jewellery" />}
+            />
 
-<Route path="/products/:id" element={<ProductDetails />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
 
-<Route path="/favorites" element={<Favorites />} />
+            <Route path="/favorites" element={<Favorites />} />
 
-<Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={<Cart />} />
 
-<Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<Checkout />} />
 
-<Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
 
-<Route path="/orders" element={<Order/>} />
+            <Route path="/orders" element={<Order />} />
 
-<Route path="/Login" element={<Login />} />
+            <Route path="/Login" element={<Login />} />
 
-<Route path="/signup" element={<Signup />} />
-        
-<Route path="*" element={<NotFound />} />
-      </Routes>
+            <Route path="/signup" element={<Signup />} />
+
+            <Route path="*" element={<NotFound />} />
+
+          </Routes>
+        </main>
+
+        {/* Footer */}
+        <Footer />
+
+      </div>
     </BrowserRouter>
-    
-  )
+  );
 }
 
 export default App;

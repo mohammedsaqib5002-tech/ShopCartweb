@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    try {
-      const savedOrders = JSON.parse(
-        localStorage.getItem("orders") || "[]"
-      );
-      setOrders(Array.isArray(savedOrders) ? savedOrders : []);
-    } catch {
-      setOrders([]);
-    }
-  }, []);
+ const [orders] = useState(() => {
+  try {
+    const savedOrders = JSON.parse(
+      localStorage.getItem("orders") || "[]"
+    );
+    return Array.isArray(savedOrders) ? savedOrders : [];
+  } catch {
+    return [];
+  }
+});
 
   return (
     <div className="min-h-screen bg-gray-50 px-3 py-6 sm:px-6">

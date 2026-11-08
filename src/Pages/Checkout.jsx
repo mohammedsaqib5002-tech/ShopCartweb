@@ -62,7 +62,7 @@ const Checkout = () => {
       JSON.parse(localStorage.getItem("orders")) || [];
 
     const newOrder = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       items: cartItems,
       total: totalPrice,
       date: new Date().toLocaleString(),
